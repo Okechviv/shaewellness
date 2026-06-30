@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShaeWellness Energy Assessment</title>
+<style>
+  :root{
+    --blue-bright:#00A8EB;
+    --blue-alt:#0CACEC;
+    --blue-soft:#9EDEF7;
+    --gray-dark:#545454;
+    --gray-mid:#707070;
+    --border:#DDDDDD;
+    --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    color:var(--gray-mid);
+    line-height:1.6;
+    background:var(--white);
+  }
+  h1,h2,h3{
+    color:var(--gray-dark);
+    font-weight:700;
+    line-height:1.25;
+  }
+  a{text-decoration:none;color:inherit;}
+  .container{
+    max-width:1140px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .eyebrow{
+    color:var(--blue-bright);
+    font-weight:700;
+    letter-spacing:1.5px;
+    font-size:13px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    display:block;
+  }
+  .btn{
+    display:inline-block;
+    background:var(--blue-bright);
+    color:var(--white);
+    padding:16px 34px;
+    border-radius:6px;
+    font-weight:700;
+    font-size:16px;
+    border:none;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .btn:hover{background:var(--blue-alt);transform:translateY(-1px);}
+
+  /* HEADER */
+  header{
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+    padding:18px 0;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  header .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  header img{height:34px;display:block;}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, #0B2540 0%, #123a5c 100%);
+    color:var(--white);
+    padding:110px 0 80px;
+    text-align:center;
+  }
+  .hero h1{
+    color:var(--white);
+    font-size:58px;
+    font-weight:800;
+    letter-spacing:-0.5px;
+    max-width:900px;
+    margin:0 auto 26px;
+  }
+  .hero h1 .line-one{
+    display:block;
+    font-size:62px;
+  }
+  .hero h1 .accent{
+    display:block;
+    color:var(--blue-soft);
+    font-size:34px;
+    font-weight:700;
+    margin-top:14px;
+    letter-spacing:0;
+  }
+  .hero p{
+    font-size:18px;
+    color:#cfe8f7;
+    max-width:640px;
+    margin:0 auto 32px;
+  }
+  .hero-sub-note{
+    font-size:14px;
+    color:#9fc8de;
+    margin-top:16px;
+  }
+
+  /* TIMER BAR */
+  section{padding:80px 0;}
+  .section-header{
+    text-align:center;
+    max-width:680px;
+    margin:0 auto 50px;
+  }
+  .section-header h2{font-size:32px;}
+
+  /* WHO THIS IS FOR */
+  .split{
+    display:flex;
+    gap:60px;
+    align-items:center;
+  }
+  .split > div{flex:1;}
+  .split h2{font-size:30px;margin-bottom:18px;}
+  .split p{margin-bottom:14px;}
+  .img-block{
+    width:100%;
+    height:320px;
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--blue-soft),#d6f0fb);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--blue-bright);
+    font-weight:700;
+    font-size:14px;
+    text-align:center;
+    padding:20px;
+  }
+
+  .symptom-list{margin-top:18px;}
+  .symptom-item{
+    display:flex;
+    gap:14px;
+    margin-bottom:16px;
+    align-items:flex-start;
+  }
+  .symptom-icon{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--blue-bright);
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:14px;
+    margin-top:2px;
+  }
+
+  /* OFFER STACK */
+  .bg-soft{background:var(--blue-soft);}
+  .offer-card{
+    background:var(--white);
+    border:2px solid var(--blue-bright);
+    border-radius:14px;
+    max-width:560px;
+    margin:0 auto;
+    padding:40px 36px;
+    text-align:left;
+  }
+  .offer-card h3{
+    font-size:22px;
+    margin-bottom:22px;
+    text-align:center;
+  }
+  .offer-list{list-style:none;margin-bottom:18px;}
+  .offer-list li{
+    display:flex;
+    gap:12px;
+    margin-bottom:14px;
+    font-size:16px;
+    color:var(--gray-dark);
+    font-weight:600;
+  }
+  .offer-list li .check{
+    color:var(--blue-bright);
+    font-weight:800;
+    flex-shrink:0;
+  }
+  .bonus-divider{
+    border-top:1px dashed var(--border);
+    margin:22px 0;
+  }
+  .bonus-list li{
+    font-weight:400;
+    color:var(--gray-mid);
+  }
+  .bonus-tag{
+    display:inline-block;
+    background:var(--blue-soft);
+    color:#066a91;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:2px 8px;
+    border-radius:4px;
+    margin-right:8px;
+  }
+  .value-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:26px;
+    padding-top:22px;
+    border-top:1px solid var(--border);
+  }
+  .value-old{
+    text-decoration:line-through;
+    color:var(--gray-mid);
+    font-size:16px;
+  }
+  .value-old .num{font-weight:700;color:var(--gray-dark);}
+  .value-new{
+    text-align:right;
+  }
+  .value-new .today-label{
+    font-size:13px;
+    color:var(--gray-mid);
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
+  .value-new .price{
+    font-size:30px;
+    font-weight:800;
+    color:var(--blue-bright);
+  }
+  .offer-cta{
+    display:block;
+    text-align:center;
+    margin-top:26px;
+  }
+  .offer-cta .btn{width:100%;padding:18px;}
+  .offer-note{
+    text-align:center;
+    font-size:13px;
+    color:var(--gray-mid);
+    margin-top:14px;
+  }
+
+  /* HOW IT WORKS */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .step-card{
+    text-align:center;
+    padding:10px;
+  }
+  .step-num{
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    background:var(--blue-bright);
+    color:var(--white);
+    font-weight:800;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 18px;
+  }
+  .step-card h3{font-size:18px;margin-bottom:10px;}
+
+  /* TESTIMONIALS */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .testi-card{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:28px 24px;
+    text-align:left;
+  }
+  .testi-card .quote{
+    font-size:15px;
+    margin-bottom:18px;
+    min-height:110px;
+    color:var(--gray-dark);
+  }
+  .quote-author{font-weight:700;color:var(--gray-dark);font-size:15px;}
+  .quote-role{font-size:13px;color:var(--gray-mid);margin-top:2px;}
+  .stars{color:#F5B400;font-size:16px;margin-bottom:10px;display:block;}
+
+  /* FAQ */
+  .faq-item{
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px 24px;
+    margin-bottom:14px;
+    cursor:pointer;
+  }
+  .faq-q{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:700;
+    color:var(--gray-dark);
+    font-size:16px;
+  }
+  .faq-a{
+    margin-top:12px;
+    display:none;
+    font-size:15px;
+  }
+  .faq-item.open .faq-a{display:block;}
+  .faq-arrow{transition:transform 0.2s ease;}
+  .faq-item.open .faq-arrow{transform:rotate(180deg);}
+
+  /* FINAL CTA */
+  .final-cta{
+    background:linear-gradient(135deg, #0B2540 0%, #123a5c 100%);
+    color:var(--white);
+    text-align:center;
+  }
+  .final-cta h2{font-size:32px;color:var(--white);margin-bottom:16px;}
+  .final-cta p{max-width:560px;margin:0 auto 28px;color:#cfe8f7;}
+
+  /* COPYRIGHT */
+  .footer-copy{
+    background:var(--gray-dark);
+    text-align:center;
+    padding:26px 0;
+    font-size:13px;
+    color:#e6e6e6;
+  }
+
+  @media (max-width:900px){
+    .split{flex-direction:column;}
+    .steps, .testi-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+    .hero h1 .line-one{font-size:34px;}
+    .hero h1 .accent{font-size:20px;}
+    .offer-card{padding:30px 24px;}
+    .value-row{flex-direction:column;gap:14px;align-items:flex-start;}
+    .value-new{text-align:left;}
+  }
+  /* FULL-BLEED FIX: forces this content to escape any parent container
+     padding/margin set by the page builder, regardless of its settings */
+  html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    overflow-x:hidden;
+}
+.full-bleed{
+    width:100vw;
+    min-height:100vh;
+    position:relative;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+    padding:0;
+    display:block;
+}
+.full-bleed > *{width:100%;}
+header,section,footer,.footer-copy{width:100%;}
+
+</style>
+</head>
+<body>
+<div class="full-bleed">
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <a href="#"><img src="data:image/png;base64,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" alt="ShaeWellness"></a>
+    <a href="#lead-form" class="btn">Take My Free Assessment</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1><span class="line-one">Why Are You Still Tired?</span><span class="accent">Find Your Biggest Energy Leak in Just 3 Minutes.</span></h1>
+    <p>Take our AI-powered assessment to uncover the lifestyle patterns affecting your energy, focus, and recovery, and receive personalized insights to help you make smarter daily health decisions.</p>
+    <a href="#lead-form" class="btn">Take My Free Assessment</a>
+    <div class="hero-sub-note">It takes three minutes. No credit card required.</div>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section>
+  <div class="container split">
+    <div>
+      <span class="eyebrow">Does This Sound Like You?</span>
+      <h2>You do everything right, and you are still exhausted.</h2>
+      <p>You sleep close to eight hours and still wake up tired. You push through the afternoon on willpower because your focus disappears by mid-day. You have tried trackers and apps, and you still do not know why your energy keeps slipping.</p>
+      <p>You are not alone. Millions of professionals rely on health tracking tools and wellness apps every day. They collect sleep scores, recovery metrics, and activity data, yet many still feel exhausted. The information is there, but it often lacks the context needed to understand why they feel the way they do or what steps to take next.</p>
+      <div class="symptom-list">
+        <div class="symptom-item">
+          <div class="symptom-icon">!</div>
+          <div>You wake up tired even after a full night of sleep.</div>
+        </div>
+        <div class="symptom-item">
+          <div class="symptom-icon">!</div>
+          <div>You have the data from your tracker, but no idea what it means for you.</div>
+        </div>
+        <div class="symptom-item">
+          <div class="symptom-icon">!</div>
+          <div>You are quietly worried this is just how it feels to get older.</div>
+        </div>
+        <div class="symptom-item">
+          <div class="symptom-icon">!</div>
+          <div>You have tried different health tools and devices looking for answers, but still lack clear, personalized guidance.</div>
+        </div>
+      </div>
+    </div>
+    <div class="img-block">Energy Score Preview<br>Sleep Quality: Moderate<br>Recovery Trend: Declining<br>Burnout Risk: Elevated</div>
+  </div>
+</section>
+
+<!-- OFFER STACK -->
+<section class="bg-soft" id="assessment">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Your Free Gift</span>
+      <h2>Everything You Get in the Free AI Energy Assessment</h2>
+    </div>
+    <div class="offer-card">
+      <h3>Free AI Energy Assessment</h3>
+      <ul class="offer-list">
+        <li><span class="check">&#10003;</span> Personalized Energy Score</li>
+        <li><span class="check">&#10003;</span> Burnout Risk Analysis</li>
+        <li><span class="check">&#10003;</span> Lifestyle Pattern Report</li>
+        <li><span class="check">&#10003;</span> Top 3 Daily Improvements</li>
+        <li><span class="check">&#10003;</span> Health Intelligence Summary</li>
+      </ul>
+      <div class="bonus-divider"></div>
+      <ul class="offer-list bonus-list">
+        <li><span class="bonus-tag">Bonus</span> 7-Day Energy Optimization Plan</li>
+        <li><span class="bonus-tag">Bonus</span> Morning Performance Checklist</li>
+        <li><span class="bonus-tag">Bonus</span> Recovery Habit Tracker</li>
+      </ul>
+      <div class="value-row">
+        <div class="value-old">Total value: <span class="num">$147</span></div>
+        <div class="value-new">
+          <div class="today-label">Today</div>
+          <div class="price">FREE</div>
+        </div>
+      </div>
+      <!-- Lead capture form connects here. Replace this anchor with the embedded GHL form. -->
+      <a href="#lead-form" class="offer-cta"><span class="btn">Claim My Free Assessment Now</span></a>
+      <div class="offer-note">Only available for the first 10 sign ups.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM EMBED -->
+<section id="lead-form" style="padding-top:0;">
+  <div class="container" style="max-width:600px;">
+    <div class="section-header" style="margin-bottom:30px;">
+      <span class="eyebrow">Start Here</span>
+      <h2>Get Your Free Energy Assessment</h2>
+    </div>
+    <iframe
+      src="https://link.msgsndr.com/widget/form/y16Qqp2rIBT97NcZ1QdU"
+      style="width:100%;height:600px;border:none;border-radius:10px;"
+      id="inline-y16Qqp2rIBT97NcZ1QdU"
+      data-layout="{'id':'INLINE'}"
+      data-trigger-type="alwaysShow"
+      data-trigger-value=""
+      data-activation-type="alwaysActivated"
+      data-activation-value=""
+      data-deactivation-type="neverDeactivate"
+      data-deactivation-value=""
+      data-form-name="Free AI Energy Assessment"
+      data-height="600"
+      data-layout-iframe-id="inline-y16Qqp2rIBT97NcZ1QdU"
+      data-form-id="y16Qqp2rIBT97NcZ1QdU"
+      title="Free AI Energy Assessment">
+    </iframe>
+  </div>
+</section>
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">How It Works</span>
+      <h2>Three Minutes to Your Energy Score</h2>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Answer a Few Questions</h3>
+        <p>Quick questions about your sleep, energy, stress, and daily habits. No wearable required.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Get Your Energy Score</h3>
+        <p>Our AI reads your answers and builds a personalized picture of where your energy is leaking.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Receive Your Action Plan</h3>
+        <p>Get your report and the top three changes that will make the biggest difference, starting today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS WORKS -->
+<section>
+  <div class="container" style="max-width:780px;margin:0 auto;text-align:center;">
+    <span class="eyebrow">Why This Is Different</span>
+    <h2 style="font-size:30px;margin-bottom:22px;">Trackers measure. ShaeWellness explains.</h2>
+    <p style="margin-bottom:16px;">Most health apps collect data and give it back to you in charts. They track what happened. They do not tell you why, and they do not tell you what to do about it. That is the gap that leaves people frustrated after years of tracking.</p>
+    <p style="margin-bottom:16px;">ShaeWellness reads your patterns the way a clinical expert would. It looks at how your sleep affected your focus today. It spots the habits that are quietly draining your recovery before you feel the crash. And it delivers one clear, specific action you can take right now, not a list of ten things that could apply to anyone.</p>
+    <p>The assessment takes three minutes. What it gives you is the clarity most people spend years and hundreds of dollars trying to find.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="bg-soft">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Testimonies</span>
+      <h2>What Our Members Are Saying</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p class="quote">I had every tracker out there. None of them explained why I was still exhausted by mid-afternoon. ShaeWellness was the first to actually tell me why, and what to do about it.</p>
+        <p class="quote-author">David K.</p>
+        <p class="quote-role">Senior Project Manager, Westpac Private Wealth</p>
+      </div>
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p class="quote">I do everything right, and I was still exhausted. Within two weeks of getting my daily brief, I finally understood why my sleep was not translating into energy.</p>
+        <p class="quote-author">Nita R.</p>
+        <p class="quote-role">Operations Director, Yellow Pages New Zealand</p>
+      </div>
+      <div class="testi-card">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <p class="quote">I had data from my watch for years and never knew what to do with it. ShaeWellness turned it into one clear action a day, and that is what actually moved the needle.</p>
+        <p class="quote-author">Rob T.</p>
+        <p class="quote-role">Deputy Principal, Playford College</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="faq-item open" onclick="this.classList.toggle('open')">
+        <div class="faq-q">How long does the assessment take? <span class="faq-arrow">&#9662;</span></div>
+        <div class="faq-a">About three minutes. It is a short set of questions about your sleep, energy, and daily habits. No wearable device is required.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Is this assessment really free? <span class="faq-arrow">&#9662;</span></div>
+        <div class="faq-a">Yes. The assessment, the energy score, and all three bonuses are free for the first 10 people who sign up today. No credit card is required.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">What happens after I complete the assessment? <span class="faq-arrow">&#9662;</span></div>
+        <div class="faq-a">You will receive your personalized energy score, your burnout risk analysis, and your top three daily improvements by email, along with your bonus resources.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">I already use a fitness tracker. Why is that not enough? <span class="faq-arrow">&#9662;</span></div>
+        <div class="faq-a">Trackers record data. They do not interpret it for your specific body. Many people spend years collecting sleep scores and recovery percentages without ever receiving a clear explanation of what those numbers mean or what to actually do differently. This assessment bridges that gap.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Will this tell me something my doctor has not already told me? <span class="faq-arrow">&#9662;</span></div>
+        <div class="faq-a">Many people who take this assessment have already spoken with a doctor and been told that their test results are normal, yet they still struggle with persistent fatigue and low energy. This assessment does not replace medical advice. What it does is look at your lifestyle patterns, your daily habits, your energy rhythms, and the behavioral signals that standard tests do not capture. It gives you a practical, personalized picture of what is affecting your energy right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Stop guessing why you are tired.</h2>
+    <p>Find your biggest energy leak in three minutes, and get a personalized plan to fix it. Free for the first 10 sign ups today.</p>
+    <a href="#lead-form" class="btn">Take My Free Assessment</a>
+  </div>
+</section>
+
+<!-- COPYRIGHT -->
+<div class="footer-copy">
+  ShaeWellness &nbsp;|&nbsp; Copyright 2026 ShaeWellness. All rights reserved.
+</div>
+
+</div>
+</body>
+</html>
